@@ -8,7 +8,7 @@ public class Movie {
     private double lengthInMinutes;
     private String genre;
 
-    // Constructor
+    // Constructors
     public Movie(String title, String director) {
         this.title = title;
         this.director = director;
