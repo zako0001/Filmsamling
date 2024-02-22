@@ -10,17 +10,30 @@ public class MovieCollection {
         movieList = new ArrayList<Movie>();
     }
 
-    // Method
+    // Methods
     public void addMovie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
         movieList.add(new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre));
+    }
+    public MovieCollection searchMovie(String searchTitle) {
+        MovieCollection mc = new MovieCollection();
+        for(Movie movie : this.movieList) {
+            if(movie.getTitle().toLowerCase().contains(searchTitle.toLowerCase())) {
+                mc.movieList.add(movie);
+            }
+        }
+        if(mc.movieList.isEmpty()) {
+            return null;
+        } else {
+            return mc;
+        }
     }
 
     // Object method
     @Override
     public String toString() {
-        String returnString = "\n---MovieCollection begins---";
-        for(Movie movie : movieList) {returnString += "\n\n" + movie;}
-        returnString += "\n\n---MovieCollection ends---";
-        return returnString;
+        StringBuilder returnString = new StringBuilder();
+        for(Movie movie : movieList) {
+            returnString.append("\n").append(movie).append("\n");}
+        return "" + returnString;
     }
 }
