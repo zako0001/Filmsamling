@@ -2,16 +2,16 @@ import java.util.ArrayList;
 
 public class MovieCollection {
 
-    // Attributes
-    private final ArrayList<Movie> collection;
+    // Attribute
+    private ArrayList<Movie> movieList;
 
     // Constructor
     public MovieCollection() {
-        collection = new ArrayList<Movie>();
+        movieList = new ArrayList<Movie>();
     }
 
     // Method
-    public void addMovie(Movie m) {
-        collection.add(m);
+    public void addMovie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
+        movieList.add(new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre));
     }
 }

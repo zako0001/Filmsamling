@@ -8,10 +8,14 @@ public class Movie {
     private double lengthInMinutes;
     private String genre;
 
-    // Constructors
-    public Movie(String title, String director) {
+    // Constructor
+    public Movie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
         this.title = title;
         this.director = director;
+        this.yearCreated = yearCreated;
+        this.isInColor = isInColor;
+        this.lengthInMinutes = lengthInMinutes;
+        this.genre = genre;
     }
 
     // Getters

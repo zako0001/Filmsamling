@@ -1,17 +1,15 @@
-import java.util.ArrayList;
-
 public class Controller {
 
     // Attribute
-    MovieCollection collection;
+    private MovieCollection movieCollection;
 
     // Constructor
     public Controller() {
-        collection = new MovieCollection();
+        movieCollection = new MovieCollection();
     }
 
     // Method
-    public void addMovie(String title, String director) {
-        collection.addMovie(new Movie(title, director));
+    public void addMovie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
+        movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
     }
 }
