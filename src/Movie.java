@@ -25,4 +25,12 @@ public class Movie {
     public boolean getIsInColor() {return isInColor;}
     public double getLengthInMinutes() {return lengthInMinutes;}
     public String getGenre() {return genre;}
+
+    // Object method
+    @Override
+    public String toString() {
+        String c;
+        if(isInColor) {c = "yes";} else {c = "no";}
+        return "Title: "+title+"\nDirector: "+director+"\nYear created: "+yearCreated+"\nIs in color: "+c+"\nLength in minutes: "+lengthInMinutes+"\nGenre: "+genre;
+    }
 }

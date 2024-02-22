@@ -7,39 +7,41 @@ public class Main {
         Scanner input = new Scanner(System.in);
         input.useDelimiter("\n"); // Forhindrer bøvl med mellemrum
 
-        while (true) {
+        boolean run = true;
+        while (run) {
 
             // Præsenterer menuen
-            System.out.println("\nVelkommen til min filmsamling!\n1. Opret en film\n2. Afslut\n\nIndtast menuvalg:");
-            int menuValg = input.nextInt();
+            System.out.println("\nVelkommen til min filmsamling!\n1. Opret en film\n2. Udskriv filmsamling\n3. Afslut\n\nIndtast menuvalg:");
+            switch (input.nextInt()) {
 
-            // Opretter og tilføjer film
-            if (menuValg == 1) {
-                System.out.println("\nIndtast venligst informationer om filmen.\nTitle:");
-                String title = input.next();
-                System.out.println("Director:");
-                String director = input.next();
-                System.out.println("Year created:");
-                int yearCreated = input.nextInt();
-                System.out.println("Is in color (yes/no):");
-                boolean isInColor = input.next().equalsIgnoreCase("yes");
-                System.out.println("Length in minutes:");
-                double lengthInMinutes = input.nextDouble();
-                System.out.println("Genre:");
-                String genre = input.next();
-                controller.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
-                System.out.println("\nFilm tilføjet.");
-            }
+                case 1: // Opretter og tilføjer film
+                    System.out.println("\nIndtast venligst informationer om filmen.\nTitle:");
+                    String title = input.next();
+                    System.out.println("Director:");
+                    String director = input.next();
+                    System.out.println("Year created:");
+                    int yearCreated = input.nextInt();
+                    System.out.println("Is in color (yes/no):");
+                    boolean isInColor = input.next().equalsIgnoreCase("yes");
+                    System.out.println("Length in minutes:");
+                    double lengthInMinutes = input.nextDouble();
+                    System.out.println("Genre:");
+                    String genre = input.next();
+                    controller.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
+                    System.out.println("\nFilm tilføjet.");
+                    break;
 
-            // Afslutter programmet
-            else if (menuValg == 2) {
-                System.out.println("\nAfslutter.");
-                break;
-            }
+                case 2: // Udskriver filmsamlingen som tekst i terminalen
+                    System.out.println(controller.getMovieCollectionAsString());
+                    break;
 
-            // Hvis brugeren skriver ugyldigt menuvalg.
-            else {
-                System.out.println("Valg skal være 1 eller 2.");
+                case 3: // Afslutter programmet
+                    System.out.println("\nAfslutter...");
+                    run = false;
+                    break;
+
+                default: // Hvis brugeren skriver ugyldigt menuvalg
+                    System.out.println("Valg skal være 1 eller 2.");
             }
         }
     }

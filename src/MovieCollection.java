@@ -14,4 +14,13 @@ public class MovieCollection {
     public void addMovie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
         movieList.add(new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre));
     }
+
+    // Object method
+    @Override
+    public String toString() {
+        String returnString = "\n---MovieCollection begins---";
+        for(Movie movie : movieList) {returnString += "\n\n" + movie;}
+        returnString += "\n\n---MovieCollection ends---";
+        return returnString;
+    }
 }
