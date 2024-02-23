@@ -23,7 +23,8 @@ public class MovieCollection {
         }
         if(mc.movieList.isEmpty()) {
             return null;
-        } else {
+        }
+        else {
             return mc;
         }
     }
@@ -33,7 +34,8 @@ public class MovieCollection {
     public String toString() {
         StringBuilder returnString = new StringBuilder();
         for(Movie movie : movieList) {
-            returnString.append("\n").append(movie).append("\n");}
-        return "" + returnString;
+            returnString.append("\n").append(movie).append("\n");
+        }
+        return returnString.toString();
     }
 }
