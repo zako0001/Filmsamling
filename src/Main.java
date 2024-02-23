@@ -40,11 +40,11 @@ public class Main {
 
                 case 2: // Søger efter en film ud fra titlen
                     System.out.println("\nIndtast søgeord til filmtitlerne:");
-                    System.out.println("\n" + controller.searchMovieAsString(input.next()));
+                    System.out.println("\n" + controller.searchMovie(input.next()));
                     break;
 
                 case 3: // Udskriver filmsamlingen som tekst i terminalen
-                    System.out.println("\n" + controller.getMovieCollectionAsString());
+                    System.out.println("\n" + controller.showMovieCollection());
                     break;
 
                 case 4: // Afslutter programmet

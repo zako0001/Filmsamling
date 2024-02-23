@@ -14,28 +14,32 @@ public class MovieCollection {
     public void addMovie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
         movieList.add(new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre));
     }
-    public MovieCollection searchMovie(String searchTitle) {
-        MovieCollection mc = new MovieCollection();
-        for(Movie movie : this.movieList) {
+    public String searchMovie(String searchTitle) {
+        ArrayList<Movie> results= new ArrayList<Movie>();
+        for(Movie movie : movieList) {
             if(movie.getTitle().toLowerCase().contains(searchTitle.toLowerCase())) {
-                mc.movieList.add(movie);
+                results.add(movie);
             }
         }
-        if(mc.movieList.isEmpty()) {
-            return null;
+        if(results.isEmpty()) {
+            return "No match for \"" + searchTitle + "\".";
         }
         else {
-            return mc;
+            String returnString = "---Movies containing \"" + searchTitle + "\" in title---\n";
+            for(Movie movie : results) {
+                returnString += "\n" + movie + "\n";
+            }
+            return returnString + "\n---Search result ends---";
         }
     }
 
     // Object method
     @Override
     public String toString() {
-        StringBuilder returnString = new StringBuilder();
+        String returnString = "---MovieCollection begins---\n";
         for(Movie movie : movieList) {
-            returnString.append("\n").append(movie).append("\n");
+            returnString += "\n" + movie + "\n";
         }
-        return returnString.toString();
+        return returnString + "\n---MovieCollection ends---";
     }
 }
