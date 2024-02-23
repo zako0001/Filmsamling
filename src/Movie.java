@@ -29,17 +29,10 @@ public class Movie {
     // Object method
     @Override
     public String toString() {
-        String isInColorAsString;
-        if(isInColor) {
-            isInColorAsString = "yes";
-        }
-        else {
-            isInColorAsString = "no";
-        }
         return "Title: " + title +
             "\nDirector: " + director +
             "\nYear created: " + yearCreated +
-            "\nIs in color: " + isInColorAsString +
+            "\nIs in color: " + (isInColor ? "yes" : "no") +
             "\nLength in minutes: " + lengthInMinutes +
             "\nGenre: " + genre;
     }

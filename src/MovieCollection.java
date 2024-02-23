@@ -15,7 +15,7 @@ public class MovieCollection {
         movieList.add(new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre));
     }
     public String searchMovie(String searchTitle) {
-        ArrayList<Movie> results= new ArrayList<Movie>();
+        ArrayList<Movie> results = new ArrayList<Movie>();
         for(Movie movie : movieList) {
             if(movie.getTitle().toLowerCase().contains(searchTitle.toLowerCase())) {
                 results.add(movie);
