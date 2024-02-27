@@ -71,9 +71,9 @@ public class UserInterface {
         }
         else { // Hvis der er matches, skal de vises i en resultatmenu, hvor man kan vælge mellem dem
             while(true) { // While gør at vi kan komme tilbage til denne resultatmenu
-                System.out.println("\n---Movies containing \"" + searchTitle + "\" in title---"); // Menuens overskrift
+                System.out.println("\n---Movies containing \"" + searchTitle + "\" in title---"); // Resultatmenuens overskrift
                 int option = 0;
-                for(int index : indexes) { // Vi skal bygge menuen ud fra, hvor mange matches der er, så her går vi gennem dem
+                for(int index : indexes) { // Vi skal bygge resultatmenuen ud fra, hvor mange matches der er, så her går vi gennem dem
                     System.out.println(++option + ". " + controller.getMovieTitle(index)); // Her bliver udskrevet et tal (valgmulighed) og en filmtitel
                     // ++ før variabelnavnet betyder at den bliver 1 højere inden den læses
                 }
