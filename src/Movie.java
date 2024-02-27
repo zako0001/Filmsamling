@@ -45,5 +45,6 @@ public class Movie {
             "\n4. Is in color: " + (isInColor ? "yes" : "no") +
             "\n5. Length in minutes: " + lengthInMinutes +
             "\n6. Genre: " + genre;
+        // Tallene giver numre til de forskellige attributes
     }
 }
