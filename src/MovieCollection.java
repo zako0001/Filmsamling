@@ -14,22 +14,29 @@ public class MovieCollection {
     public void addMovie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
         movieList.add(new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre));
     }
-    public String searchMovie(String searchTitle) {
-        ArrayList<Movie> results = new ArrayList<Movie>();
+    public ArrayList<Integer> searchMovie(String searchTitle) {
+        ArrayList<Integer> indexes = new ArrayList<>();
         for(Movie movie : movieList) {
             if(movie.getTitle().toLowerCase().contains(searchTitle.toLowerCase())) {
-                results.add(movie);
+                indexes.add(movieList.indexOf(movie));
             }
         }
-        if(results.isEmpty()) {
-            return "No match for \"" + searchTitle + "\".";
-        }
-        else {
-            String returnString = "---Movies containing \"" + searchTitle + "\" in title---\n";
-            for(Movie movie : results) {
-                returnString += "\n" + movie + "\n";
-            }
-            return returnString + "\n---Search result ends---";
+        return indexes;
+    }
+    public String getMovieTitle(int index) {
+        return movieList.get(index).getTitle();
+    }
+    public String getMovie(int index) {
+        return movieList.get(index).toString();
+    }
+    public void editMovie(int index, int property, String input) {
+        switch (property) {
+            case 1 -> movieList.get(index).setTitle(input);
+            case 2 -> movieList.get(index).setDirector(input);
+            case 3 -> movieList.get(index).setYearCreated(Integer.parseInt(input));
+            case 4 -> movieList.get(index).setIsInColor(input.equalsIgnoreCase("yes"));
+            case 5 -> movieList.get(index).setLengthInMinutes(Double.parseDouble(input));
+            case 6 -> movieList.get(index).setGenre(input);
         }
     }
 
