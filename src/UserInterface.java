@@ -15,7 +15,7 @@ public class UserInterface {
         input.useDelimiter("\n"); // Forhindrer bøvl med mellemrum
         running = false;
 
-        // Hardcodede film til hurtig test af søgefunktion
+        // Hardcodede film til hurtig brugertest af søgefunktion
         controller.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
         controller.addMovie("Avatar: The Way of Water", "James Cameron", 2022, true, 192, "Action");
         controller.addMovie("Love Actually", "Richard Curtis", 2003, true, 135, "Comedy");
@@ -66,32 +66,32 @@ public class UserInterface {
         System.out.println("\nIndtast søgeord til filmtitlerne:");
         String searchTitle = input.next(); // Her er søgeordet
         ArrayList<Integer> indexes = controller.searchMovie(searchTitle); // Her er listen over indekser på de film, der har søgeordet i titlen
-        if(indexes.isEmpty()) { // Tjekker om listen er tom, for så var der ingen matches på søgeordet
+        if (indexes.isEmpty()) { // Tjekker om listen er tom, for så var der ingen matches på søgeordet
             System.out.println("No match for \"" + searchTitle + "\".");
         }
         else { // Hvis der er matches, skal de vises i en resultatmenu, hvor man kan vælge mellem dem
-            while(true) { // While gør at vi kan komme tilbage til denne resultatmenu
+            while (true) { // While gør at vi kan komme tilbage til denne resultatmenu
                 System.out.println("\n---Movies containing \"" + searchTitle + "\" in title---"); // Resultatmenuens overskrift
                 int option = 0;
-                for(int index : indexes) { // Vi skal bygge resultatmenuen ud fra, hvor mange matches der er, så her går vi gennem dem
+                for (int index : indexes) { // Vi skal bygge resultatmenuen ud fra, hvor mange matches der er, så her går vi gennem dem
                     System.out.println(++option + ". " + controller.getMovieTitle(index)); // Her bliver udskrevet et tal (valgmulighed) og en filmtitel
                     // ++ før variabelnavnet betyder at den bliver 1 højere inden den læses
                 }
                 System.out.println("0. Tilbage til hovedmenu\n\nIndtast valg af film:");
                 int chosenOption = input.nextInt();
-                if(chosenOption > 0 && chosenOption <= option) { // Hvis en af filmene blev valgt (vi kan komme tilbage til resultatmenuen)
+                if (chosenOption > 0 && chosenOption <= option) { // Hvis en af filmene blev valgt (vi kan komme tilbage til resultatmenuen)
                     int chosenFilm = indexes.get(chosenOption - 1); // -1 skyldes at valgmulighederne starter fra 1 og lister starter fra 0, så filmene vil være 1 lavere i listen
                     // Der skal nu laves en filmændringsmenu ud fra den valgte film (se nederst i Movie-klassen)
                     System.out.println("\n---Valgte film---\n" + controller.getMovie(chosenFilm) + "\n0. Tilbage til søgeresultater\n\nVil du ændre filmen? Indtast valgmulighed:");
                     int editOption = input.nextInt();
-                    if(editOption > 0 && editOption <= 6) { // Hvis en attribut er valgt (6 er højeste nummer blandt Movies attributes)
+                    if (editOption > 0 && editOption <= 6) { // Hvis en attribut er valgt (6 er højeste nummer blandt Movies attributes)
                         System.out.println("Indtast ny information:");
                         controller.editMovie(chosenFilm, editOption, input.next()); // Filmattributten ændres vba. filmens indeks, filmattributtens nummer og den nye værdi som String
                         System.out.println("\n---Film ændret til---\n" + controller.getMovie(chosenFilm));
                     }
                     // Filmændringsmenuen slutter og vi går tilbage til resultatmenuen pga. while-loopet
                 }
-                else { // Hvis en af filmene ikke blev valgt
+                else { // Hvis ingen af filmene blev valgt
                     break; // Bryder ud af while-loopet og dermed ud af resultatmenuen
                 }
             }
