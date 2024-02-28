@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MovieCollectionTest {
 
-    @DisplayName("No added")
+    @DisplayName("0 added")
     @Test
     void getMovieCollectionList() {
         // Arrange
@@ -16,9 +16,9 @@ class MovieCollectionTest {
         assertEquals(expectedSize, actualSize);
     }
 
-    @DisplayName("One added")
+    @DisplayName("1 added")
     @Test
-    void addOneMovie() {
+    void addMovieOne() {
         // Arrange
         MovieCollection mc = new MovieCollection();
         // Act
@@ -29,9 +29,9 @@ class MovieCollectionTest {
         assertEquals(expectedSize, actualSize);
     }
 
-    @DisplayName("Two added")
+    @DisplayName("2 added")
     @Test
-    void addTwoMovies() {
+    void addMovieTwo() {
         // Arrange
         MovieCollection mc = new MovieCollection();
         // Act
@@ -45,7 +45,7 @@ class MovieCollectionTest {
 
     @DisplayName("0 found")
     @Test
-    void searchNoMovie() {
+    void searchMovieZero() {
         // Arrange
         MovieCollection mc = new MovieCollection();
         mc.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
@@ -61,7 +61,7 @@ class MovieCollectionTest {
 
     @DisplayName("1 found")
     @Test
-    void searchOneMovie() {
+    void searchMovieOne() {
         // Arrange
         MovieCollection mc = new MovieCollection();
         mc.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
@@ -77,7 +77,7 @@ class MovieCollectionTest {
 
     @DisplayName("2 found")
     @Test
-    void searchTwoMovie() {
+    void searchMovieTwo() {
         // Arrange
         MovieCollection mc = new MovieCollection();
         mc.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
