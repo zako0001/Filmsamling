@@ -10,9 +10,9 @@ class MovieCollectionTest {
         // Arrange
         MovieCollection mc = new MovieCollection();
         // Act
+        int actualSize = mc.getMovieCollectionList().size();
         // Assert
         int expectedSize = 0;
-        int actualSize = mc.getMovieCollectionList().size();
         assertEquals(expectedSize, actualSize);
     }
 
