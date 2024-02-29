@@ -83,7 +83,7 @@ public class UserInterface {
                 if (chosenOption > 0 && chosenOption <= option) { // Hvis en af filmene blev valgt (vi kan komme tilbage til resultatmenuen)
                     int chosenFilm = indexes.get(chosenOption - 1); // -1 skyldes at valgmulighederne starter fra 1 og lister starter fra 0, så filmene vil være 1 lavere i listen
                     // Der skal nu laves en filmændringsmenu ud fra den valgte film (se nederst i Movie-klassen)
-                    System.out.println("\n---Valgte film---\n" + controller.getMovie(chosenFilm) + "\n0. Tilbage til søgeresultater\n\nVil du ændre filmen? Indtast valgmulighed:");
+                    System.out.println("\n---Valgte film---\n" + controller.getMovie(chosenFilm) + "\n7. Slet filmen\n0. Tilbage til søgeresultater\n\nVil du ændre filmen? Indtast valgmulighed:");
                     int editOption = scanIntSafely();
                     if (editOption > 0 && editOption <= 6) { // Hvis en attribut er valgt (6 er højeste nummer blandt Movies attributes)
                         System.out.println("Indtast ny information:");
@@ -94,6 +94,17 @@ public class UserInterface {
                         catch (NumberFormatException nfe) {
                             input.nextLine();
                             System.out.println("Ændring fejlede: ikke et tal.");
+                        }
+                    }
+                    else if (editOption == 7) {
+                        System.out.println("Er du sikker på, at du vil slette \"" + controller.getMovieTitle(chosenFilm) + "\" permanent (ja/nej)?");
+                        if (input.next().equalsIgnoreCase("ja")) {
+                            System.out.println("\"" + controller.getMovieTitle(chosenFilm) + "\" er slettet fra filmsamlingen.");
+                            controller.deleteMovie(chosenFilm); // skal være efter printet fordi indexer kan være flyttet
+                            break; // bryder ud, fordi resultatmenuen indeholder en nu slettet film og fordi indekser kan være flyttet
+                        }
+                        else {
+                            System.out.println("\"" + controller.getMovieTitle(chosenFilm) + "\" blev ikke slettet fra filmsamlingen.");
                         }
                     }
                     // Filmændringsmenuen slutter og vi går tilbage til resultatmenuen pga. while-loopet

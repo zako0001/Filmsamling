@@ -45,6 +45,11 @@ public class MovieCollection {
         }
     }
 
+    public void deleteMovie(int index) {
+        // Her kan et indeks fra en søgning bruges til at finde en bestemt film
+        movieCollectionList.remove(index);
+    }
+
     // Object method
     @Override
     public String toString() {

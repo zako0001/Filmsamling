@@ -90,4 +90,39 @@ class MovieCollectionTest {
         int expectedSize = 2;
         assertEquals(expectedSize, actualSize);
     }
+
+    @DisplayName("1 deleted")
+    @Test
+    void deleteMovieOne() {
+        // Arrange
+        MovieCollection mc = new MovieCollection();
+        mc.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
+        mc.addMovie("Avatar: The Way of Water", "James Cameron", 2022, true, 192, "Action");
+        mc.addMovie("Love Actually", "Richard Curtis", 2003, true, 135, "Comedy");
+        mc.addMovie("Harry Potter and the Prisoner of Azkaban", "Alfonso Cuarón", 2004, true, 142, "Adventure");
+        // Act
+        mc.deleteMovie(0);
+        // Assert
+        int actualSize = mc.getMovieCollectionList().size();
+        int expectedSize = 3;
+        assertEquals(expectedSize, actualSize);
+    }
+
+    @DisplayName("2 deleted")
+    @Test
+    void deleteMovieTwo() {
+        // Arrange
+        MovieCollection mc = new MovieCollection();
+        mc.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
+        mc.addMovie("Avatar: The Way of Water", "James Cameron", 2022, true, 192, "Action");
+        mc.addMovie("Love Actually", "Richard Curtis", 2003, true, 135, "Comedy");
+        mc.addMovie("Harry Potter and the Prisoner of Azkaban", "Alfonso Cuarón", 2004, true, 142, "Adventure");
+        // Act
+        mc.deleteMovie(0);
+        mc.deleteMovie(0);
+        // Assert
+        int actualSize = mc.getMovieCollectionList().size();
+        int expectedSize = 2;
+        assertEquals(expectedSize, actualSize);
+    }
 }

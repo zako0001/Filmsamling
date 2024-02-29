@@ -26,6 +26,9 @@ public class Controller {
     public void editMovie(int index, int property, String input) {
         movieCollection.editMovie(index, property, input);
     }
+    public void deleteMovie(int index) {
+        movieCollection.deleteMovie(index);
+    }
     public String showMovieCollection() {
         return movieCollection.toString();
     }
