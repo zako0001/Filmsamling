@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -35,7 +36,7 @@ public class UserInterface {
                 "4. Afslut\n" +
                 "\nIndtast menuvalg:"
             );
-            switch (input.nextInt()) { // Henter menuvalg
+            switch (scanIntSafely()) { // menuvalg indtastes her
                 case 1 -> addMovie();
                 case 2 -> searchMovie(); // Her kan fundne film ændres
                 case 3 -> showMovieCollection();
@@ -50,13 +51,13 @@ public class UserInterface {
         System.out.println("\nIndtast venligst informationer om filmen.\nTitle:");
         String title = input.next();
         System.out.println("Director:");
-        String director = input.next();
+        String director = input.next(); // scannerens delimiter er ændret i constructoren, så director kan godt blive et fuldt navn med mellemrum
         System.out.println("Year created:");
-        int yearCreated = input.nextInt();
+        int yearCreated = scanIntSafely();
         System.out.println("Is in color (yes/no):");
         boolean isInColor = input.next().equalsIgnoreCase("yes");
         System.out.println("Length in minutes:");
-        double lengthInMinutes = input.nextDouble();
+        double lengthInMinutes = scanDoubleSafely();
         System.out.println("Genre:");
         String genre = input.next();
         controller.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
@@ -78,16 +79,22 @@ public class UserInterface {
                     // ++ før variabelnavnet betyder at den bliver 1 højere inden den læses
                 }
                 System.out.println("0. Tilbage til hovedmenu\n\nIndtast valg af film:");
-                int chosenOption = input.nextInt();
+                int chosenOption = scanIntSafely();
                 if (chosenOption > 0 && chosenOption <= option) { // Hvis en af filmene blev valgt (vi kan komme tilbage til resultatmenuen)
                     int chosenFilm = indexes.get(chosenOption - 1); // -1 skyldes at valgmulighederne starter fra 1 og lister starter fra 0, så filmene vil være 1 lavere i listen
                     // Der skal nu laves en filmændringsmenu ud fra den valgte film (se nederst i Movie-klassen)
                     System.out.println("\n---Valgte film---\n" + controller.getMovie(chosenFilm) + "\n0. Tilbage til søgeresultater\n\nVil du ændre filmen? Indtast valgmulighed:");
-                    int editOption = input.nextInt();
+                    int editOption = scanIntSafely();
                     if (editOption > 0 && editOption <= 6) { // Hvis en attribut er valgt (6 er højeste nummer blandt Movies attributes)
                         System.out.println("Indtast ny information:");
-                        controller.editMovie(chosenFilm, editOption, input.next()); // Filmattributten ændres vba. filmens indeks, filmattributtens nummer og den nye værdi som String
-                        System.out.println("\n---Film ændret til---\n" + controller.getMovie(chosenFilm));
+                        try {
+                            controller.editMovie(chosenFilm, editOption, input.next()); // Filmattributten ændres vba. filmens indeks, filmattributtens nummer og den nye værdi som String
+                            System.out.println("\n---Film ændret til---\n" + controller.getMovie(chosenFilm));
+                        }
+                        catch (NumberFormatException nfe) {
+                            input.nextLine();
+                            System.out.println("Ændring fejlede: ikke et tal.");
+                        }
                     }
                     // Filmændringsmenuen slutter og vi går tilbage til resultatmenuen pga. while-loopet
                 }
@@ -103,5 +110,25 @@ public class UserInterface {
     private void stopProgram() {
         System.out.println("\nAfslutter...");
         running = false; // Stopper while-loopet i startProgram-metoden og grunden til at running er attribute i stedet for lokal variabel i startProgram (pga. scope)
+    }
+    private int scanIntSafely() {
+        try {
+            return input.nextInt();
+        }
+        catch (InputMismatchException ime) {
+            input.nextLine(); // Scanneren skal lige forstå, at den nu skal være klar til at læse på en ny linje
+            System.out.println("Indtastede var ikke heltal. Prøv igen.");
+            return scanIntSafely(); // Rekursion: Metoden kalder sig selv, og starter dermed forfra med et nyt try!
+        }
+    }
+    private Double scanDoubleSafely() { // For kommentarer se int-metoden ovenfor
+        try {
+            return input.nextDouble();
+        }
+        catch (InputMismatchException ime) {
+            input.nextLine();
+            System.out.println("Indtastede var ikke et heltal eller kommasepareret decimaltal. Prøv igen.");
+            return scanDoubleSafely();
+        }
     }
 }
