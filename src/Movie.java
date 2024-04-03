@@ -5,11 +5,11 @@ public class Movie {
     private String director;
     private int yearCreated;
     private boolean isInColor;
-    private double lengthInMinutes;
+    private int lengthInMinutes;
     private String genre;
 
     // Constructor
-    public Movie(String title, String director, int yearCreated, boolean isInColor, double lengthInMinutes, String genre) {
+    public Movie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre) {
         this.title = title;
         this.director = director;
         this.yearCreated = yearCreated;
@@ -19,32 +19,52 @@ public class Movie {
     }
 
     // Getters
-    public String getTitle() {return title;}
-    /* Ikke brugt
-    public String getDirector() {return director;}
-    public int getYearCreated() {return yearCreated;}
-    public boolean getIsInColor() {return isInColor;}
-    public double getLengthInMinutes() {return lengthInMinutes;}
-    public String getGenre() {return genre;}
-    */
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public int getYearCreated() {
+        return yearCreated;
+    }
+
+    public boolean getIsInColor() {
+        return isInColor;
+    }
+
+    public int getLengthInMinutes() {
+        return lengthInMinutes;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
 
     // Setters
-    public void setTitle(String in) {title = in;}
-    public void setDirector(String in) {director = in;}
-    public void setYearCreated(int in) {yearCreated = in;}
-    public void setIsInColor(boolean in) {isInColor = in;}
-    public void setLengthInMinutes(double in) {lengthInMinutes = in;}
-    public void setGenre(String in) {genre = in;}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    // Object method
-    @Override
-    public String toString() {
-        return "1. Title: " + title +
-            "\n2. Director: " + director +
-            "\n3. Year created: " + yearCreated +
-            "\n4. Is in color: " + (isInColor ? "yes" : "no") +
-            "\n5. Length in minutes: " + lengthInMinutes +
-            "\n6. Genre: " + genre;
-        // Tallene giver numre til de forskellige attributes
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setYearCreated(int yearCreated) {
+        this.yearCreated = yearCreated;
+    }
+
+    public void setIsInColor(boolean isInColor) {
+        this.isInColor = isInColor;
+    }
+
+    public void setLengthInMinutes(int lengthInMinutes) {
+        this.lengthInMinutes = lengthInMinutes;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }
