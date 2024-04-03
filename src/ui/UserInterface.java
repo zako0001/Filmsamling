@@ -1,3 +1,7 @@
+package ui;
+
+import domain_model.*;
+
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -69,8 +73,7 @@ public class UserInterface {
         List<Movie> movies = controller.searchMovie(searchTitle); // Her er listen over de film, der har søgeordet i titlen.
         if (movies.isEmpty()) { // Tjekker om listen er tom, for så var der ingen matches på søgeordet.
             System.out.println("No match for '" + searchTitle + "'.");
-        }
-        else { // Hvis der er matches, skal de vises i en resultatmenu, hvor man kan vælge mellem dem.
+        } else { // Hvis der er matches, skal de vises i en resultatmenu, hvor man kan vælge mellem dem.
             while (true) { // While gør at vi kan komme tilbage til denne resultatmenu.
                 System.out.println("\n---Movies containing '" + searchTitle + "' in title---"); // Resultatmenuens overskrift.
                 int option = 0;
@@ -83,7 +86,7 @@ public class UserInterface {
                 int chosenOption = scanIntSafely();
                 if (chosenOption > 0 && chosenOption <= option) { // Hvis en af filmene blev valgt (vi kan komme tilbage til resultatmenuen).
                     Movie chosenFilm = movies.get(chosenOption - 1); // -1 skyldes at valgmulighederne starter fra 1 og lister starter fra 0, så filmene vil være 1 lavere i listen.
-                    // Der skal nu laves en filmændringsmenu ud fra den valgte film (se nederst i Movie-klassen).
+                    // Der skal nu laves en filmændringsmenu ud fra den valgte film (se nederst i domain_model.Movie-klassen).
                     System.out.println("\n---Valgte film---");
                     System.out.println("1. Title: " + chosenFilm.getTitle());
                     System.out.println("2. Director: " + chosenFilm.getDirector());
@@ -136,12 +139,12 @@ public class UserInterface {
     }
 
     private void showMovieCollection() {
-        System.out.println("\n---MovieCollection begins---");
+        System.out.println("\n---domain_model.MovieCollection begins---");
         for (Movie movie : controller.searchMovie("")) {
             System.out.println();
             showMovie(movie);
         }
-        System.out.println("\n---MovieCollection ends---");
+        System.out.println("\n---domain_model.MovieCollection ends---");
     }
 
     private void stopProgram() {

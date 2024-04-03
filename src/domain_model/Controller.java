@@ -1,3 +1,5 @@
+package domain_model;
+
 import java.util.List;
 
 public class Controller {

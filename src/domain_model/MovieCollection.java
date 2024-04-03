@@ -1,3 +1,7 @@
+package domain_model;
+
+import domain_model.Movie;
+
 import java.util.ArrayList;
 import java.util.List;
 
