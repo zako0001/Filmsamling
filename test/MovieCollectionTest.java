@@ -10,7 +10,7 @@ class MovieCollectionTest {
         // Arrange
         MovieCollection mc = new MovieCollection();
         // Act
-        int actualSize = mc.getMovieCollectionList().size();
+        int actualSize = mc.searchMovie("").size();
         // Assert
         int expectedSize = 0;
         assertEquals(expectedSize, actualSize);
@@ -25,7 +25,7 @@ class MovieCollectionTest {
         mc.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
         // Assert
         int expectedSize = 1;
-        int actualSize = mc.getMovieCollectionList().size();
+        int actualSize = mc.searchMovie("").size();
         assertEquals(expectedSize, actualSize);
     }
 
@@ -39,7 +39,7 @@ class MovieCollectionTest {
         mc.addMovie("Avatar: The Way of Water", "James Cameron", 2022, true, 192, "Action");
         // Assert
         int expectedSize = 2;
-        int actualSize = mc.getMovieCollectionList().size();
+        int actualSize = mc.searchMovie("").size();
         assertEquals(expectedSize, actualSize);
     }
 
@@ -101,9 +101,9 @@ class MovieCollectionTest {
         mc.addMovie("Love Actually", "Richard Curtis", 2003, true, 135, "Comedy");
         mc.addMovie("Harry Potter and the Prisoner of Azkaban", "Alfonso Cuarón", 2004, true, 142, "Adventure");
         // Act
-        mc.deleteMovie(0);
+        mc.deleteMovie(mc.searchMovie("").getFirst());
         // Assert
-        int actualSize = mc.getMovieCollectionList().size();
+        int actualSize = mc.searchMovie("").size();
         int expectedSize = 3;
         assertEquals(expectedSize, actualSize);
     }
@@ -118,10 +118,10 @@ class MovieCollectionTest {
         mc.addMovie("Love Actually", "Richard Curtis", 2003, true, 135, "Comedy");
         mc.addMovie("Harry Potter and the Prisoner of Azkaban", "Alfonso Cuarón", 2004, true, 142, "Adventure");
         // Act
-        mc.deleteMovie(0);
-        mc.deleteMovie(0);
+        mc.deleteMovie(mc.searchMovie("").getFirst());
+        mc.deleteMovie(mc.searchMovie("").getFirst());
         // Assert
-        int actualSize = mc.getMovieCollectionList().size();
+        int actualSize = mc.searchMovie("").size();
         int expectedSize = 2;
         assertEquals(expectedSize, actualSize);
     }

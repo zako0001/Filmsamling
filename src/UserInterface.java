@@ -28,7 +28,7 @@ public class UserInterface {
         running = true;
         System.out.println("\nVelkommen til min filmsamling!");
         while (running) {
-            System.out.println("\n---Hovedmenu---\n");
+            System.out.println("\n---Hovedmenu---");
             System.out.println("1. Opret en film");
             System.out.println("2. Søg efter film");
             System.out.println("3. Udskriv filmsamling");
@@ -72,7 +72,7 @@ public class UserInterface {
         }
         else { // Hvis der er matches, skal de vises i en resultatmenu, hvor man kan vælge mellem dem.
             while (true) { // While gør at vi kan komme tilbage til denne resultatmenu.
-                System.out.println("\n---Movies containing \"" + searchTitle + "\" in title---"); // Resultatmenuens overskrift.
+                System.out.println("\n---Movies containing '" + searchTitle + "' in title---"); // Resultatmenuens overskrift.
                 int option = 0;
                 for (Movie movie : movies) { // Vi skal bygge resultatmenuen ud fra, hvor mange matches der er, så her går vi gennem dem.
                     System.out.println(++option + ". " + movie.getTitle()); // Her bliver udskrevet et tal (valgmulighed) og en filmtitel.
@@ -93,7 +93,8 @@ public class UserInterface {
                     System.out.println("6. Genre: " + chosenFilm.getGenre());
                     System.out.println("7. Slet filmen");
                     System.out.println("0. Tilbage til søgeresultater");
-                    System.out.println("\nVil du ændre filmen? Indtast valgmulighed:");
+                    System.out.println("\nVil du ændre filmen?");
+                    System.out.print("Indtast valgmulighed: ");
                     int editOption = scanIntSafely();
                     if (editOption > 0 && editOption < 7) {
                         System.out.print("Indtast ny information: ");
@@ -140,7 +141,7 @@ public class UserInterface {
             System.out.println();
             showMovie(movie);
         }
-        System.out.println("\n---MovieCollection ends---\n");
+        System.out.println("\n---MovieCollection ends---");
     }
 
     private void stopProgram() {
