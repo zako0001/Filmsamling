@@ -54,14 +54,14 @@ public class UserInterface {
     }
 
     private void addMovie() {
-        System.out.println("\nIndtast informationer om filmen.");
-        String title = scanString(movieAttributes[0]);
-        String director = scanString(movieAttributes[1]);
-        int yearCreated = scanInt(movieAttributes[2], 1800, 2100);
-        boolean isInColor = scanBoolean(movieAttributes[3]);
-        int lengthInMinutes = scanInt(movieAttributes[4], 0, Integer.MAX_VALUE);
-        String genre = scanString(movieAttributes[5]);
-        controller.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
+        controller.addMovie(
+            scanString(movieAttributes[0]),
+            scanString(movieAttributes[1]),
+            scanInt(movieAttributes[2], 1800, 2100),
+            scanBoolean(movieAttributes[3]),
+            scanInt(movieAttributes[4], 0, Integer.MAX_VALUE),
+            scanString(movieAttributes[5])
+        );
         System.out.println("Film tilføjet.");
         mainMenu();
     }
@@ -96,7 +96,7 @@ public class UserInterface {
         while (true) {
             chosenOption = scanInt("Indtast menuvalg", 0, option);
             if (invalidOptions.contains(chosenOption)) {
-                System.out.println("Den film er blevet slettet.");
+                System.out.println("Den film er blevet slettet. Prøv igen.");
             } else {
                 break;
             }
