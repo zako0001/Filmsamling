@@ -1,7 +1,5 @@
 package domain_model;
 
-import domain_model.Movie;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +19,16 @@ public class MovieCollection {
     }
 
     public List<Movie> searchMovie(String searchTitle) {
+
         List<Movie> movies = new ArrayList<>();
+
         for (Movie movie : movieCollectionList) {
+
             if (movie.getTitle().toLowerCase().contains(searchTitle.toLowerCase())) {
                 movies.add(movie);
             }
         }
+
         return movies;
     }
 
