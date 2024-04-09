@@ -24,4 +24,12 @@ public class Controller {
     public void deleteMovie(Movie movie) {
         movieCollection.deleteMovie(movie);
     }
+
+    public void loadFromFile() {
+        movieCollection.loadFromFile();
+    }
+
+    public void saveToFile() {
+        movieCollection.saveToFile();
+    }
 }

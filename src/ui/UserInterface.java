@@ -25,19 +25,14 @@ public class UserInterface {
         scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
         movieAttributes = new String[]{"Filmtitel", "Filminstruktør", "Årstal", "Farvefilm", "Længde i minutter", "Genre"};
-
-        // Hardcodede film til hurtig brugertest af søgefunktion
-        controller.addMovie("Avatar", "James Cameron", 2009, true, 162, "Action");
-        controller.addMovie("Avatar: The Way of Water", "James Cameron", 2022, true, 192, "Action");
-        controller.addMovie("Love Actually", "Richard Curtis", 2003, true, 135, "Comedy");
-        controller.addMovie("Harry Potter and the Prisoner of Azkaban", "Alfonso Cuarón", 2004, true, 142, "Adventure");
     }
 
     // Method
     public void startProgram() {
-
         System.out.println("\nVelkommen til min filmsamling!");
+        controller.loadFromFile();
         mainMenu();
+        controller.saveToFile();
     }
 
     // Auxiliary methods
@@ -49,7 +44,7 @@ public class UserInterface {
             1. Opret en film
             2. Søg efter film
             3. Udskriv filmsamling
-            0. Afslut
+            0. Gem og afslut
             """);
 
         int option = scanInt("Indtast menuvalg", 0, 3);
@@ -58,7 +53,7 @@ public class UserInterface {
             case 1 -> addMovie();
             case 2 -> searchMovie();
             case 3 -> showMovieCollection();
-            case 0 -> System.out.println("\nAfslutter...");
+            case 0 -> System.out.println("\nDin samling er gemt. Afslutter...");
         }
     }
 

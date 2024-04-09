@@ -1,12 +1,14 @@
 package domain_model;
 
+import data_source.FileHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieCollection {
 
     // Attribute
-    private final List<Movie> movieCollectionList;
+    private final ArrayList<Movie> movieCollectionList;
 
     // Constructor
     public MovieCollection() {
@@ -34,5 +36,13 @@ public class MovieCollection {
 
     public void deleteMovie(Movie movie) {
         movieCollectionList.remove(movie);
+    }
+
+    public void loadFromFile(){
+        movieCollectionList.addAll(FileHandler.loadMovies());
+    }
+
+    public void saveToFile(){
+        FileHandler.saveMovies(movieCollectionList);
     }
 }
