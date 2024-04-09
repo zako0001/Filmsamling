@@ -24,7 +24,14 @@ public class UserInterface {
         controller = new Controller();
         scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
-        movieAttributes = new String[]{"Filmtitel", "Filminstruktør", "Årstal", "Farvefilm", "Længde i minutter", "Genre"};
+        movieAttributes = new String[] {
+                "Filmtitel",
+                "Filminstruktør",
+                "Årstal",
+                "Farvefilm",
+                "Længde i minutter",
+                "Genre"
+        };
     }
 
     // Method
@@ -53,7 +60,7 @@ public class UserInterface {
             case 1 -> addMovie();
             case 2 -> searchMovie();
             case 3 -> showMovieCollection();
-            case 0 -> System.out.println("\nDin samling er gemt. Afslutter...");
+            case 0 -> System.out.println("\nMin filmsamling er gemt. Afslutter...");
         }
     }
 
@@ -76,7 +83,7 @@ public class UserInterface {
 
         System.out.print("Indtast søgeord til filmtitlerne: ");
         searchWord = scanner.next();
-        searchResults = controller.searchMovie(searchWord);
+        searchResults = new ArrayList<>(List.of(controller.searchMovie(searchWord)));
         deletedMovies = new ArrayList<>();
 
         if (searchResults.isEmpty()) {
@@ -103,7 +110,7 @@ public class UserInterface {
             }
         }
 
-        System.out.println("0. Tilbage til hovedmenu");
+        System.out.println("0. Tilbage til hovedmenu\n");
         int chosenOption;
 
         while (true) {
@@ -121,13 +128,13 @@ public class UserInterface {
         } else {
             Movie chosenMovie = searchResults.get(chosenOption - 1);
             System.out.println("\n---Valgt film---");
-            editMenu(chosenMovie);
+            editMenu(chosenMovie, true);
         }
     }
 
-    private void editMenu(Movie movie) {
+    private void editMenu(Movie movie, boolean fromSearch) {
 
-        showMovie(movie);
+        showMovie(movie, false);
         System.out.println(STR."\n---Redigér eller slet '\{movie.getTitle()}'---");
 
         for (int i = 1; i < 7; i++) {
@@ -135,33 +142,37 @@ public class UserInterface {
         }
 
         System.out.println("7. Slet filmen");
-        System.out.println("0. Tilbage til søgeresultater");
+        System.out.println(STR."0. Tilbage til \{fromSearch ? "søgeresultater" : "hovedmenu"}\n");
         int choice = scanInt("Indtast menuvalg", 0, 7);
 
         if (choice == 0) {
-            searchMenu();
+            if (fromSearch) {
+                searchMenu();
+            } else {
+                mainMenu();
+            }
         } else if (choice == 7) {
             deleteMovie(movie);
         } else {
-            editMovie(choice - 1, movie);
+            editMovie(choice - 1, movie, fromSearch);
         }
     }
 
-    private void editMovie(int attributeIndex, Movie movie) {
+    private void editMovie(int attributeIndex, Movie movie, boolean fromSearch) {
 
         String message = STR."Indtast ny \{movieAttributes[attributeIndex].toLowerCase()}";
 
         switch (attributeIndex) {
-            case 0 -> movie.setTitle(scanString(message));
-            case 1 -> movie.setDirector(scanString(message));
-            case 2 -> movie.setYearCreated(scanInt(message, 1800, 2100));
-            case 3 -> movie.setIsInColor(scanBoolean(message));
-            case 4 -> movie.setLengthInMinutes(scanInt(message, 0, Integer.MAX_VALUE));
-            case 5 -> movie.setGenre(scanString(message));
+            case 0 -> controller.editMovie(movie, movie.getTitle(), scanString(message));
+            case 1 -> controller.editMovie(movie, movie.getDirector(), scanString(message));
+            case 2 -> controller.editMovie(movie, movie.getYearCreated(), scanInt(message, 1800, 2100));
+            case 3 -> controller.editMovie(movie, movie.getIsInColor(), scanBoolean(message));
+            case 4 -> controller.editMovie(movie, movie.getLengthInMinutes(), scanInt(message, 0, Integer.MAX_VALUE));
+            case 5 -> controller.editMovie(movie, movie.getGenre(), scanString(message));
         }
 
         System.out.println("\n---Film ændret til---");
-        editMenu(movie);
+        editMenu(movie, fromSearch);
     }
 
     private void deleteMovie(Movie movie) {
@@ -176,29 +187,57 @@ public class UserInterface {
         } else {
             System.out.println(STR."'\{movie.getTitle()}' blev ikke slettet fra filmsamlingen.");
             System.out.println("\n---Valgt film---");
-            editMenu(movie);
+            editMenu(movie, false);
         }
     }
 
-    private void showMovie(Movie movie) {
+    private void showMovie(Movie movie, boolean indent) {
 
-        String[] specificMovieAttributes = {movie.getTitle(), movie.getDirector(), "" + movie.getYearCreated(), movie.getIsInColor() ? "Ja" : "Nej", "" + movie.getLengthInMinutes(), movie.getGenre()};
+        String[] specificMovieAttributes = {
+                movie.getTitle(),
+                movie.getDirector(),
+                movie.getYearCreated() + "",
+                movie.getIsInColor() ? "Ja" : "Nej",
+                movie.getLengthInMinutes() + "",
+                movie.getGenre()
+        };
 
-        for (int i = 0; i < 6; i++) {
-            System.out.println(STR."\{movieAttributes[i]}: \{specificMovieAttributes[i]}");
+        for (int i = 0; i < specificMovieAttributes.length; i++) {
+            System.out.println(STR."\{indent ? "   " : ""}\{movieAttributes[i]}: \{specificMovieAttributes[i]}");
         }
     }
 
     private void showMovieCollection() {
 
-        System.out.print("\n------Liste af film------");
+        Movie[] movies = controller.showMovieCollection();
+        System.out.println();
 
-        for (Movie movie : controller.searchMovie("")) {
-            System.out.println();
-            showMovie(movie);
+        if (movies.length == 0) {
+            System.out.println("Der er ingen film i filmsamlingen.");
+            mainMenu();
+        } else if (movies.length == 1) {
+            System.out.println("---Eneste film i filmsamlingen---");
+            editMenu(movies[0], false);
+        } else {
+            System.out.println("------Liste af film------");
+            int number = 0;
+
+            for (Movie movie : movies) {
+                System.out.println(STR."\n   ---Film nr. \{++number}---");
+                showMovie(movie, true);
+            }
+
+            System.out.println(STR."\n1. - \{number}. Vælg film nr.");
+            System.out.println("0. Tilbage til hovedmenu\n");
+            int choice = scanInt("Indtast menuvalg", 0, number);
+
+            if (choice == 0) {
+                mainMenu();
+            } else {
+                System.out.println("\n---Valgt film---");
+                editMenu(movies[choice - 1], false);
+            }
         }
-
-        mainMenu();
     }
 
     private int scanInt(String message, int lowerBound, int upperBound) {
@@ -211,19 +250,19 @@ public class UserInterface {
             if (number >= lowerBound && number <= upperBound) {
                 return number;
             } else {
-                System.out.println("Indtastede var ikke ");
+                System.out.print("Indtastede var ikke ");
 
                 if (lowerBound == Integer.MIN_VALUE) {
-                    System.out.println(STR."under \{upperBound}");
+                    System.out.print(STR."under \{upperBound}");
                 } else if (upperBound == Integer.MAX_VALUE) {
-                    System.out.println(STR."over \{lowerBound}");
+                    System.out.print(STR."over \{lowerBound}");
                 } else {
-                    System.out.println(STR."mellem \{lowerBound} og \{upperBound}");
+                    System.out.print(STR."mellem \{lowerBound} og \{upperBound}");
                 }
             }
         } catch (InputMismatchException ime) {
             scanner.nextLine();
-            System.out.println("Indtastede var ikke heltal");
+            System.out.print("Indtastede var ikke heltal");
         }
 
         System.out.println(". Prøv igen.");

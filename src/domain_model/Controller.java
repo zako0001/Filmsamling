@@ -1,7 +1,5 @@
 package domain_model;
 
-import java.util.List;
-
 public class Controller {
 
     // Attribute
@@ -17,12 +15,28 @@ public class Controller {
         movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
     }
 
-    public List<Movie> searchMovie(String searchTitle) {
+    public Movie[] searchMovie(String searchTitle) {
         return movieCollection.searchMovie(searchTitle);
+    }
+
+    public void editMovie(Movie movie, String oldValue, String newValue) {
+        movieCollection.editMovie(movie, oldValue, newValue);
+    }
+
+    public void editMovie(Movie movie, int oldValue, int newValue) {
+        movieCollection.editMovie(movie, oldValue, newValue);
+    }
+
+    public void editMovie(Movie movie, boolean oldValue, boolean newValue) {
+        movieCollection.editMovie(movie, oldValue, newValue);
     }
 
     public void deleteMovie(Movie movie) {
         movieCollection.deleteMovie(movie);
+    }
+
+    public Movie[] showMovieCollection() {
+        return movieCollection.showMovieCollection();
     }
 
     public void loadFromFile() {

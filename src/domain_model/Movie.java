@@ -12,6 +12,7 @@ public class Movie {
 
     // Constructor
     public Movie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre) {
+
         this.title = title;
         this.director = director;
         this.yearCreated = yearCreated;
@@ -46,27 +47,27 @@ public class Movie {
     }
 
     // Setters
-    public void setTitle(String title) {
+    protected void setTitle(String title) {
         this.title = title;
     }
 
-    public void setDirector(String director) {
+    protected void setDirector(String director) {
         this.director = director;
     }
 
-    public void setYearCreated(int yearCreated) {
+    protected void setYearCreated(int yearCreated) {
         this.yearCreated = yearCreated;
     }
 
-    public void setIsInColor(boolean isInColor) {
+    protected void setIsInColor(boolean isInColor) {
         this.isInColor = isInColor;
     }
 
-    public void setLengthInMinutes(int lengthInMinutes) {
+    protected void setLengthInMinutes(int lengthInMinutes) {
         this.lengthInMinutes = lengthInMinutes;
     }
 
-    public void setGenre(String genre) {
+    protected void setGenre(String genre) {
         this.genre = genre;
     }
 }
