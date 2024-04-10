@@ -1,5 +1,7 @@
 package domain_model;
 
+import java.util.Comparator;
+
 public class Movie {
 
     // Attributes
@@ -9,6 +11,14 @@ public class Movie {
     private boolean isInColor;
     private int lengthInMinutes;
     private String genre;
+
+    // Comparators
+    public static final Comparator<Movie> TITLE_ORDER = Comparator.comparing(Movie::getTitle, String.CASE_INSENSITIVE_ORDER);
+    public static final Comparator<Movie> DIRECTOR_ORDER = Comparator.comparing(Movie::getDirector, String.CASE_INSENSITIVE_ORDER);
+    public static final Comparator<Movie> YEAR_CREATED_ORDER = Comparator.comparing(Movie::getYearCreated);
+    public static final Comparator<Movie> IS_IN_COLOR_ORDER = Comparator.comparing(Movie::getIsInColor);
+    public static final Comparator<Movie> LENGTH_IN_MINUTES_ORDER = Comparator.comparing(Movie::getLengthInMinutes);
+    public static final Comparator<Movie> GENRE_ORDER = Comparator.comparing(Movie::getGenre, String.CASE_INSENSITIVE_ORDER);
 
     // Constructor
     public Movie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre) {

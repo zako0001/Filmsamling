@@ -1,5 +1,7 @@
 package domain_model;
 
+import java.util.Comparator;
+
 public class Controller {
 
     // Attribute
@@ -19,15 +21,7 @@ public class Controller {
         return movieCollection.searchMovie(searchTitle);
     }
 
-    public void editMovie(Movie movie, String oldValue, String newValue) {
-        movieCollection.editMovie(movie, oldValue, newValue);
-    }
-
-    public void editMovie(Movie movie, int oldValue, int newValue) {
-        movieCollection.editMovie(movie, oldValue, newValue);
-    }
-
-    public void editMovie(Movie movie, boolean oldValue, boolean newValue) {
+    public void editMovie(Movie movie, Object oldValue, Object newValue) {
         movieCollection.editMovie(movie, oldValue, newValue);
     }
 
@@ -35,8 +29,8 @@ public class Controller {
         movieCollection.deleteMovie(movie);
     }
 
-    public Movie[] showMovieCollection(String att) {
-        return movieCollection.showMovieCollection(att);
+    public Movie[] showMovieCollection(Comparator<Movie> movieComparator) {
+        return movieCollection.showMovieCollection(movieComparator);
     }
 
     public void loadFromFile() {

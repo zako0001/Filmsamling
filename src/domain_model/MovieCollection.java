@@ -23,62 +23,42 @@ public class MovieCollection {
 
         return movieCollectionList.stream()
                 .filter(movie -> movie.getTitle().toLowerCase().contains(searchTitle.toLowerCase()))
+                .sorted(Movie.TITLE_ORDER)
                 .toArray(Movie[]::new);
     }
 
-    public void editMovie(Movie movie, String oldValue, String newValue) {
-        edit(movie, oldValue, newValue);
-    }
+    public void editMovie(Movie movie, Object oldValue, Object newValue) {
 
-    public void editMovie(Movie movie, int oldValue, int newValue) {
-        edit(movie, oldValue, newValue);
-    }
-
-    public void editMovie(Movie movie, boolean oldValue, boolean newValue) {
-        edit(movie, oldValue, newValue);
-    }
-
-    public void deleteMovie(Movie movie) {
-        movieCollectionList.remove(movie);
-    }
-
-    public Movie[] showMovieCollection(String att) {
-        Comparator<Movie> attComparator = switch (att){
-            case "title" -> Comparator.comparing(Movie::getTitle);
-            case "director" -> Comparator.comparing(Movie::getDirector);
-            case "yearCreated" -> Comparator.comparing(Movie::getYearCreated).reversed();
-            case "isInColor" -> Comparator.comparing(Movie::getIsInColor).reversed();
-            case "lengthInMinutes" -> Comparator.comparing(Movie::getLengthInMinutes);
-            case "genre" -> Comparator.comparing(Movie::getGenre);
-            default -> Comparator.comparing(Movie::getTitle);
-        };
-        return movieCollectionList.stream()
-                .sorted(attComparator)
-                .toArray(Movie[]::new);
-    }
-
-    public void loadFromFile(){
-        movieCollectionList.addAll(FileHandler.loadMovies());
-    }
-
-    public void saveToFile(){
-        FileHandler.saveMovies(movieCollectionList);
-    }
-
-    // Auxiliary method
-    private void edit(Movie movie, Object oldValue, Object newValue) {
-
-        if (!oldValue.equals(newValue)) {
+        if (oldValue.getClass() == newValue.getClass() && !oldValue.equals(newValue)) {
 
             switch (oldValue) {
                 case String s when s.equals(movie.getTitle()) -> movie.setTitle((String) newValue);
                 case String s when s.equals(movie.getDirector()) -> movie.setDirector((String) newValue);
                 case Integer i when i.equals(movie.getYearCreated()) -> movie.setYearCreated((int) newValue);
                 case Boolean b when b.equals(movie.getIsInColor()) -> movie.setIsInColor((boolean) newValue);
-                case Integer i when i == movie.getLengthInMinutes() -> movie.setLengthInMinutes((int) newValue);
+                case Integer i when i.equals(movie.getLengthInMinutes()) -> movie.setLengthInMinutes((int) newValue);
                 case String s when s.equals(movie.getGenre()) -> movie.setGenre((String) newValue);
                 default -> {}
             }
         }
+    }
+
+    public void deleteMovie(Movie movie) {
+        movieCollectionList.remove(movie);
+    }
+
+    public Movie[] showMovieCollection(Comparator<Movie> movieComparator) {
+
+        return movieCollectionList.stream()
+                .sorted(movieComparator)
+                .toArray(Movie[]::new);
+    }
+
+    public void loadFromFile() {
+        movieCollectionList.addAll(FileHandler.loadMovies());
+    }
+
+    public void saveToFile() {
+        FileHandler.saveMovies(movieCollectionList);
     }
 }
