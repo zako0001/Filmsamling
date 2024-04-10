@@ -42,10 +42,18 @@ public class MovieCollection {
         movieCollectionList.remove(movie);
     }
 
-    public Movie[] showMovieCollection() {
-
+    public Movie[] showMovieCollection(String att) {
+        Comparator<Movie> attComparator = switch (att){
+            case "title" -> Comparator.comparing(Movie::getTitle);
+            case "director" -> Comparator.comparing(Movie::getDirector);
+            case "yearCreated" -> Comparator.comparing(Movie::getYearCreated).reversed();
+            case "isInColor" -> Comparator.comparing(Movie::getIsInColor).reversed();
+            case "lengthInMinutes" -> Comparator.comparing(Movie::getLengthInMinutes);
+            case "genre" -> Comparator.comparing(Movie::getGenre);
+            default -> Comparator.comparing(Movie::getTitle);
+        };
         return movieCollectionList.stream()
-                .sorted(Comparator.comparing(Movie::getTitle))
+                .sorted(attComparator)
                 .toArray(Movie[]::new);
     }
 

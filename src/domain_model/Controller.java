@@ -35,8 +35,8 @@ public class Controller {
         movieCollection.deleteMovie(movie);
     }
 
-    public Movie[] showMovieCollection() {
-        return movieCollection.showMovieCollection();
+    public Movie[] showMovieCollection(String att) {
+        return movieCollection.showMovieCollection(att);
     }
 
     public void loadFromFile() {

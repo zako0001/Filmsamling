@@ -212,13 +212,32 @@ public class UserInterface {
         System.out.println("\nVælg hvilken attribut du ønsker at sortere din filmsamling efter:\n");
         int menuChoice = 0;
         for (String att : movieAttributes){
-            System.out.println(++menuChoice + ": " + att);
+            System.out.print(++menuChoice + ": " + att);
+            if (att.equals("Årstal")){
+                System.out.print(" (nyeste først)");
+            } else if (att.equals("Længde i minutter")) {
+                System.out.print(" (korteste først)");
+            } else if (att.equals("Farvefilm")) {
+                System.out.print(" (farvefilm først)");
+            }
+            System.out.println();
         }
+        System.out.println("0: Tilbage til hovedmenu");
 
-       // int menuChoiceForScanInt = scanInt()
-
-
-        Movie[] movies = controller.showMovieCollection();
+        int menuChoiceForScanInt = scanInt("\nIndtast tal til valg af attribut", 0, 6);
+        if (menuChoiceForScanInt == 0){
+            mainMenu();
+            return;
+        }
+        Movie[] movies = switch (menuChoiceForScanInt){
+            case 1 -> controller.showMovieCollection("title");
+            case 2 -> controller.showMovieCollection("director");
+            case 3 -> controller.showMovieCollection("yearCreated");
+            case 4 -> controller.showMovieCollection("isInColor");
+            case 5 -> controller.showMovieCollection("lengthInMinutes");
+            case 6 -> controller.showMovieCollection("genre");
+            default -> new Movie[]{};
+        };
         System.out.println();
 
         if (movies.length == 0) {
