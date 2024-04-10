@@ -2,6 +2,7 @@ package domain_model;
 
 import data_source.FileHandler;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MovieCollection {
 
@@ -43,7 +44,9 @@ public class MovieCollection {
 
     public Movie[] showMovieCollection() {
 
-        return movieCollectionList.toArray(Movie[]::new);
+        return movieCollectionList.stream()
+                .sorted(Comparator.comparing(Movie::getTitle))
+                .toArray(Movie[]::new);
     }
 
     public void loadFromFile(){

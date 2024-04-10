@@ -209,6 +209,15 @@ public class UserInterface {
 
     private void showMovieCollection() {
 
+        System.out.println("\nVælg hvilken attribut du ønsker at sortere din filmsamling efter:\n");
+        int menuChoice = 0;
+        for (String att : movieAttributes){
+            System.out.println(++menuChoice + ": " + att);
+        }
+
+       // int menuChoiceForScanInt = scanInt()
+
+
         Movie[] movies = controller.showMovieCollection();
         System.out.println();
 
