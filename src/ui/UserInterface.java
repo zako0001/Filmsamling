@@ -278,7 +278,7 @@ public class UserInterface {
 
     private void sortMenu() {
 
-        System.out.println(STR."""
+        String sortingOptions = STR."""
 
             ---Sortér efter---
             1. \{movieAttributes[0]}, alfabetisk rækkefølge
@@ -294,7 +294,9 @@ public class UserInterface {
             11. \{movieAttributes[5]}, alfabetisk rækkefølge
             12. \{movieAttributes[5]}, omvendt alfabetisk rækkefølge
             0. Tilbage til hovedmenu
-            """);
+            """;
+
+        System.out.println(sortingOptions);
 
         int choice = scanInt("Indtast menuvalg", 0, 12);
 
@@ -318,7 +320,35 @@ public class UserInterface {
             default -> Movie.TITLE_ORDER;
         };
 
-        shownMovies = controller.showMovieCollection(comparator);
+        if (scanBoolean("Skal rækkefølgen have en sekundær sortering?")) {
+            System.out.println(sortingOptions);
+
+            int choice2 = scanInt("Indtast menuvalg", 0, 12);
+
+            if (choice2 == 0) {
+                mainMenu();
+                return;
+            }
+
+            Comparator<Movie> comparator2 = switch (choice2) {
+                case 2 -> Movie.TITLE_ORDER.reversed();
+                case 3 -> Movie.DIRECTOR_ORDER;
+                case 4 -> Movie.DIRECTOR_ORDER.reversed();
+                case 5 -> Movie.YEAR_CREATED_ORDER;
+                case 6 -> Movie.YEAR_CREATED_ORDER.reversed();
+                case 7 -> Movie.IS_IN_COLOR_ORDER;
+                case 8 -> Movie.IS_IN_COLOR_ORDER.reversed();
+                case 9 -> Movie.LENGTH_IN_MINUTES_ORDER;
+                case 10 -> Movie.LENGTH_IN_MINUTES_ORDER.reversed();
+                case 11 -> Movie.GENRE_ORDER;
+                case 12 -> Movie.GENRE_ORDER.reversed();
+                default -> Movie.TITLE_ORDER;
+            };
+
+            shownMovies = controller.showMovieCollection(comparator.thenComparing(comparator2));
+        } else {
+            shownMovies = controller.showMovieCollection(comparator);
+        }
         showMovieCollection();
     }
 
