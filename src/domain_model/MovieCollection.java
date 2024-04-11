@@ -8,15 +8,18 @@ public class MovieCollection {
 
     // Attribute
     private final ArrayList<Movie> movieCollectionList;
+    private boolean hasChanged;
 
     // Constructor
     public MovieCollection() {
         movieCollectionList = new ArrayList<>();
+        hasChanged = false;
     }
 
     // Methods
     public void addMovie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre) {
         movieCollectionList.add(new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre));
+        hasChanged = true;
     }
 
     public Movie[] searchMovie(String searchTitle) {
@@ -30,7 +33,7 @@ public class MovieCollection {
     public void editMovie(Movie movie, Object oldValue, Object newValue) {
 
         if (oldValue.getClass() == newValue.getClass() && !oldValue.equals(newValue)) {
-
+            boolean edited = true;
             switch (oldValue) {
                 case String s when s.equals(movie.getTitle()) -> movie.setTitle((String) newValue);
                 case String s when s.equals(movie.getDirector()) -> movie.setDirector((String) newValue);
@@ -38,13 +41,17 @@ public class MovieCollection {
                 case Boolean b when b.equals(movie.getIsInColor()) -> movie.setIsInColor((boolean) newValue);
                 case Integer i when i.equals(movie.getLengthInMinutes()) -> movie.setLengthInMinutes((int) newValue);
                 case String s when s.equals(movie.getGenre()) -> movie.setGenre((String) newValue);
-                default -> {}
+                default -> edited = false;
+            }
+            if (edited) {
+                hasChanged = true;
             }
         }
     }
 
     public void deleteMovie(Movie movie) {
         movieCollectionList.remove(movie);
+        hasChanged = true;
     }
 
     public Movie[] showMovieCollection(Comparator<Movie> movieComparator) {
@@ -59,6 +66,8 @@ public class MovieCollection {
     }
 
     public void saveToFile() {
-        FileHandler.saveMovies(movieCollectionList);
+        if (hasChanged) {
+            FileHandler.saveMovies(movieCollectionList);
+        }
     }
 }
